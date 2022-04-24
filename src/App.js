@@ -1,11 +1,26 @@
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Events from './pages/Events';
+import Faith from './pages/Faith';
+import Gallery from './pages/Gallery';
+import Contact from './pages/Contact';
 
 function App() {
   return (
-    <div className='App'>
-    <Navbar/>
-    </div>
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/events' element={<Events />} />
+          <Route path='/unser-glaube' element={<Faith />} />
+          <Route path='/events/gallery' element={<Gallery />} />
+          <Route path='/contact-us' element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

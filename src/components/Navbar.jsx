@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../assets/logo.jpg';
-
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -12,6 +12,7 @@ const Navbar = () => {
             width='150'
             height='40'
             style= {{objectFit: 'cover'}}
+            alt= 'example image'
           />
         </a>
 
@@ -29,11 +30,11 @@ const Navbar = () => {
 
       <div id='navbar' class='navbar-menu'>
         <div class='navbar-end'>
-          <a class='navbar-item'>Home</a>
+          <Link to= '/' class='navbar-item'>Home</Link>
 
-          <a class='navbar-item'>Unser Glaube</a>
-          <a class='navbar-item'>Events</a>
-          <a class='navbar-item'> Kontakt</a>
+          <Link to= '/unser-glaube' class='navbar-item'>Unser Glaube</Link>
+          <Link to= '/events' class='navbar-item'>Events</Link>
+          <Link to= '/contact-us' class='navbar-item'> Kontakt</Link>
         </div>
       </div>
     </nav>
