@@ -1,14 +1,13 @@
 import React from 'react';
+import PhotoCarousel from '../components/home/PhotoCarousel';
 
 const Home = () => {
 
   return (
-    <div>Home
-
-
-
+    <div>
+      <PhotoCarousel />
     </div>
-  )
+  );
 }
 
 export default Home
