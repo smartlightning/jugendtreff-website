@@ -7,6 +7,8 @@ import Events from './pages/Events';
 import Faith from './pages/Faith';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
+import Reports from './pages/Reports';
+import Admin from './Admin';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path='/unser-glaube' element={<Faith />} />
           <Route path='/events/gallery' element={<Gallery />} />
           <Route path='/contact-us' element={<Contact />} />
+          <Route path='/reports' element={<Reports />} />
+          <Route path= '/admin' element={<Admin />} />
         </Routes>
       </div>
     </Router>
