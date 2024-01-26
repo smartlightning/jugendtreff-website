@@ -1,16 +1,17 @@
-import { Button, Paper } from '@mui/material'
-import React from 'react'
+// PhotoTile.js
+import { Paper } from "@mui/material";
+import React from "react";
 
-const PhotoTile = (props) => {
-  return (<Paper>
-    <h2>{props.item.name}</h2>
-    <p>{props.item.description}</p>
+const PhotoTile = ({ item }) => {
+  return (
+    <Paper>
+      <div>
+        <img src={item.url} alt={item.name} />
+        <h2>{item.name}</h2>
+        <p>{item.description}</p>
+      </div>
+    </Paper>
+  );
+};
 
-    <Button className="CheckButton">
-        Check it out!
-    </Button>
-</Paper>
-  )
-}
-
-export default PhotoTile
+export default PhotoTile;

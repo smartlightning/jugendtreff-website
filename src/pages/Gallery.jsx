@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import EventGallery from '../components/home/EventGallery';
+import React from "react";
+import EventGallery from "../components/home/EventGallery";
+import useFetch from "./hooks/useFetch";
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
+  const { data, loading, error } = useFetch(
+    "https://picsum.photos/v2/list?limit=10"
+  );
 
-  useEffect(() => {
-    // Fetch images from your API and set them in state
-   // api.getImages().then((data) => setImages(data));
-  }, []);
+  let images = [];
+  if (data) {
+    images = data.map((image) => ({ url: image.download_url }));
+  }
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
@@ -15,6 +21,6 @@ const Gallery = () => {
       <EventGallery images={images} />
     </div>
   );
-}
+};
 
-export default Gallery
+export default Gallery;

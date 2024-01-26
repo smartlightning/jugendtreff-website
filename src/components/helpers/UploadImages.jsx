@@ -1,5 +1,6 @@
 import React from "react";
-import ImageUploader from "react-images-upload";
+import ImageUploader from "react-image-upload";
+import "react-image-upload/dist/index.css";
 
 const UploadImages = ({ onUpload }) => {
   const onDrop = (picture) => {

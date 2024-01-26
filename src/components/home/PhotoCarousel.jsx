@@ -1,45 +1,41 @@
-import React from 'react';
-import Carousel from 'react-material-ui-carousel';
-import PhotoTile from '../PhotoTile';
+import React from "react";
+import Carousel from "react-material-ui-carousel";
+import useFetch from "../../pages/hooks/useFetch";
+import PhotoTile from "../PhotoTile";
+import { IconButton } from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
-const PhotoCarousel = (props) => {
-  // Initialize all elements with carousel class.
-  // may make more sense to use this
-  // https://github.com/oliviertassinari/react-swipeable-views
-  // or this https://www.npmjs.com/package/react-material-ui-carousel
-  /*  bulmaCarousel.attach('#carousel-demo', {
-    slidesToScroll: 1,
-    slidesToShow: 4,
-  });
-  return (
-    <div>
-      <section class='hero is-medium has-carousel'>
-        <div id='carousel-demo' class='hero-carousel'>
-          <div id='carousel-demo' class='carousel'>
-            <div class='item-1'>-- Slide Content --</div>
-            <div class='item-2'>-- Slide Content --</div>
-            <div class='item-3'>-- Slide Content --</div>
-          </div>
-          <div class='hero-head'></div>
-          <div class='hero-body'></div>
-          <div class='hero-foot'></div>
-        </div>
-      </section>
-    </div>
-  ); */
-  var items = [
-    {
-      name: 'Random Name #1',
-      description: 'Probably the most random thing you have ever seen!',
-    },
-    {
-      name: 'Random Name #2',
-      description: 'Hello World!',
-    },
-  ];
+const PhotoCarousel = () => {
+  const { data, loading, error } = useFetch(
+    "https://picsum.photos/v2/list?limit=10"
+  );
+
+  let items = [];
+  if (data) {
+    items = data.map((image, index) => ({
+      url: image.download_url,
+      name: `Random Name #${index + 1}`,
+      description: "Probably the most random thing you have ever seen!",
+    }));
+  }
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Carousel>
+    <Carousel
+      NextIcon={
+        <IconButton style={{ zIndex: 2, color: "white" }}>
+          <ArrowForwardIos />
+        </IconButton>
+      }
+      PrevIcon={
+        <IconButton style={{ zIndex: 2, color: "white" }}>
+          <ArrowBackIos />
+        </IconButton>
+      }
+      navButtonsAlwaysVisible={true}
+    >
       {items.map((item, i) => (
         <PhotoTile key={i} item={item} />
       ))}
