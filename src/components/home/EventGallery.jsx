@@ -1,10 +1,5 @@
+import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import React, { useState } from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { IconButton } from "@mui/material";
-import { ArrowBackIos, ArrowForwardIos, Close } from "@mui/icons-material";
 
 const EventGallery = ({ images }) => {
   const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
@@ -27,90 +22,59 @@ const EventGallery = ({ images }) => {
     setCurrentImage((currentImage - 1 + images.length) % images.length);
   };
 
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      closeLightbox();
+    }
+  };
+
   return (
     <div>
-      <ImageList cols={3} gap={15}>
+      <div className="grid grid-cols-3 gap-4">
         {images.map((image, index) => (
-          <ImageListItem key={index}>
+          <div key={index} className="relative">
             <img
               src={image.url}
               onClick={() => openLightbox(index)}
               alt={`Event ${index}`}
-              style={{ borderRadius: "10px", cursor: "pointer" }}
+              className="rounded-lg cursor-pointer"
             />
-          </ImageListItem>
+          </div>
         ))}
-      </ImageList>
+      </div>
 
-      {/* popup modal */}
-      <Modal
-        open={lightboxIsOpen}
-        onClose={closeLightbox}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: "10px",
-            width: "50%",
-            height: "80%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+      {lightboxIsOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
+          onClick={handleOverlayClick}
         >
-          <IconButton
-            style={{
-              zIndex: 2,
-              color: "black",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
-            onClick={closeLightbox}
-          >
-            <Close />
-          </IconButton>
-          <IconButton
-            style={{
-              zIndex: 2,
-              color: "black",
-              position: "absolute",
-              right: "10px",
-            }}
-            onClick={nextImage}
-          >
-            <ArrowForwardIos />
-          </IconButton>
-          <IconButton
-            style={{
-              zIndex: 2,
-              color: "black",
-              position: "absolute",
-              left: "10px",
-            }}
-            onClick={prevImage}
-          >
-            <ArrowBackIos />
-          </IconButton>
-          <img
-            src={images[currentImage].url}
-            alt={`Event ${currentImage}`}
-            style={{
-              maxWidth: "100%",
-              maxHeight: "100%",
-              borderRadius: "10px",
-            }}
-          />
-        </Box>
-      </Modal>
+          <div className="relative bg-white rounded-lg py-8 px-10 w-3/4 h-3/4 flex items-center justify-center">
+            <button
+              className="absolute top-2 right-2 text-black"
+              onClick={closeLightbox}
+            >
+              <XMarkIcon className="h-8 w-8 p-1 bg-slate-100 rounded-full" />
+            </button>
+            <button
+              className="absolute left-2 text-black"
+              onClick={prevImage}
+            >
+              <ChevronLeftIcon className="h-8 w-8 p-1 bg-slate-100 rounded-full" />
+            </button>
+            <button
+              className="absolute right-2 text-black"
+              onClick={nextImage}
+            >
+              <ChevronRightIcon className="h-8 w-8 p-1 bg-slate-100 rounded-full" />
+            </button>
+            <img
+              src={images[currentImage].url}
+              alt={`Event ${currentImage}`}
+              className="h-full w-full rounded-lg object-cover"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

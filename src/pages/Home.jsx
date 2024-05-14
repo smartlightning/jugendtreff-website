@@ -1,11 +1,10 @@
 import React from 'react';
-import PhotoCarousel from '../components/home/PhotoCarousel';
 
 const Home = () => {
 
   return (
     <div>
-      <PhotoCarousel />
+        <h1 className='text-4xl'>Home</h1>
     </div>
   );
 }
