@@ -1,5 +1,5 @@
 import { EnvelopeIcon as MailIcon } from '@heroicons/react/24/solid'
-import { games, gruppenBildSchlittenfahren, hiking } from '../assets'
+import { games, gruppenBildSchlittenfahren, hiking, study } from '../assets'
 import IconButton from '../components/helpers/IconButton'
 
 const Home = () => {
@@ -19,17 +19,26 @@ const Home = () => {
           </p>
         </section>
 
-        <section className="mb-6">
-          <img
-            src={games}
-            alt="group activity"
-            className="w-full mb-4 rounded-lg"
-          />
-          <img
-            src={hiking}
-            alt="group activity"
-            className="w-full mb-4 rounded-lg"
-          />
+        <section className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-4 mx-4">
+          <div className="max-h-96 overflow-hidden">
+            <img
+              src={games}
+              alt="group activity"
+              className="w-full h-full object-cover mb-4 rounded-lg"
+            />
+          </div>
+          <div className="max-h-96 overflow-hidden">
+            <img
+              src={hiking}
+              alt="group activity"
+              className="w-full h-full object-cover mb-4 rounded-lg"
+            />
+            <img
+              src={study}
+              alt="group activity"
+              className="w-full h-full object-cover mb-4 rounded-lg"
+            />
+          </div>
         </section>
 
         <section className="text-center mb-6">
@@ -40,7 +49,7 @@ const Home = () => {
             Eventplaner
           </button>
           <p className="text-lg mb-4">
-            Du willst mehr über uns erfahren? Hier geht’s zu unserem
+            Du willst mehr über uns erfahren? Hier geht's zu unserem
             Kontaktformular:
           </p>
           <button className="bg-black text-white py-2 px-4 rounded-full text-lg mb-4">
@@ -54,7 +63,9 @@ const Home = () => {
           </p>
           <IconButton
             onClick={() =>
-              window.open('https://www.instagram.com/direct/t/17842028825634235')
+              window.open(
+                'https://www.instagram.com/direct/t/17842028825634235'
+              )
             }
             icon={MailIcon}
             iconPosition="left"

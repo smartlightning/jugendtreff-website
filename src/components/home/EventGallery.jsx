@@ -3,7 +3,7 @@ import {
   ChevronRightIcon,
   XMarkIcon,
 } from '@heroicons/react/16/solid'
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 
 const EventGallery = ({ images }) => {
   const [lightboxIsOpen, setLightboxIsOpen] = useState(false)
@@ -18,19 +18,40 @@ const EventGallery = ({ images }) => {
     setLightboxIsOpen(false)
   }
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     setCurrentImage((currentImage + 1) % images.length)
-  }
+  }, [currentImage, images.length])
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setCurrentImage((currentImage - 1 + images.length) % images.length)
-  }
+  }, [currentImage, images.length])
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
       closeLightbox()
     }
   }
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        nextImage()
+      } else if (e.key === 'ArrowLeft') {
+        prevImage()
+      } else if (e.key === 'Escape') {
+        closeLightbox()
+      }
+    }
+
+    if (lightboxIsOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    } else {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [lightboxIsOpen, nextImage, prevImage])
 
   return (
     <div>
@@ -51,8 +72,9 @@ const EventGallery = ({ images }) => {
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50"
           onClick={handleOverlayClick}
+          tabIndex="0"
         >
-          <div className="relative bg-white rounded-lg py-8 px-10 w-3/4 h-3/4 flex items-center justify-center">
+          <div className="relative w-3/4 h-3/4 flex items-center justify-center">
             <button
               className="absolute top-2 right-2 text-black"
               onClick={closeLightbox}
